@@ -1,7 +1,7 @@
 <div>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-
-    <form wire:submit.prevent="store">
+    <form wire:submit.prevent="update">
+        <input type="hidden" wire:model="userId">
         <div class="form-floating mb-3">
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="floatingInput" placeholder="Nama Lengkap" wire:model="name" >
             <label for="floatingInput">Name</label>
@@ -21,15 +21,9 @@
             @enderror
           </div>
 
-          <div class="form-floating">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password" wire:model="password">
-            <label for="floatingPassword">Password</label>
 
-            @error('password')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-          <button class="btn btn-primary my-3 px-3" >save</button>
+          <button type="submit" class="btn btn-primary my-3 px-3" >update</button>
+          <button  class="btn btn-secondary my-3 px-3" wire:click="back" >cancel</button>
     </form>
 
    

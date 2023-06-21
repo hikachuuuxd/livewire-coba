@@ -1,5 +1,22 @@
 <div>
+  <div class="row">
+    @if (session()->has('status'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if($cancel)
+       @livewire('user-create')
+    @elseif($userUpdate)
+      @livewire('user-update')
+    @else
+     @livewire('user-create')
+    @endif
+</div>
     {{-- Stop trying to control. --}}
+    <div class="row mt-3">
     <table class="table">
         <thead>
           <tr>
@@ -25,12 +42,13 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->password }}</td>
             <td>
-                <a href="" class="badge bg-danger text-decoration-none">hapus</a>
-                <a href="" class="badge bg-primary text-decoration-none">edit</a>
+                <button class="badge bg-danger text-decoration-none" wire:click="destroy({{ $user->id }})">hapus</button>
+                <button class="badge bg-primary text-decoration-none" wire:click="getUser({{ $user->id }})">edit</button>
             </td>
           </tr>
           @endforeach
           @endif
         </tbody>
       </table>
+    </div>
 </div>

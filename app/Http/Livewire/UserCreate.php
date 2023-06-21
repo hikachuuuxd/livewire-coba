@@ -33,7 +33,7 @@ class UserCreate extends Component
 
         $this->resetInput();
         $this->emit('userStored', $user);
-        session()->flash('status', 'Berhasil menambahkan ' . $user['name'] );
+
     }
 
 

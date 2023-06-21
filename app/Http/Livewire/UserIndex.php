@@ -3,12 +3,22 @@
 namespace App\Http\Livewire;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
-
+    use WithPagination;
     public $userUpdate = false;
     public $reset = false;
+    public $paginate = 5;
+    protected $paginationTheme = 'bootstrap';
+    public $search;
+    protected $queryString = ['search'];
+
+    public function mount()
+    {
+        $this->search = request()->query('search', $this->search);
+    }
 
     protected $listeners = [
         'userStored' => 'handleStored',
@@ -18,7 +28,11 @@ class UserIndex extends Component
     public function render()
     {
         return view('livewire.user-index', [
-            'users' => User::get()
+    
+            'users' => $this->search == null ?
+                User::latest()->paginate($this->paginate) :
+                User::latest()->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('email', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
     

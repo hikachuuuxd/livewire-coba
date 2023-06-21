@@ -16,8 +16,23 @@
     @endif
 </div>
     {{-- Stop trying to control. --}}
-    <div class="row mt-3">
-    <table class="table">
+    <div class="row mt-3 justify-content-between">
+    <div class="col-md-4 my-3">
+      <select class="form-select" aria-label="Default select example" wire:model="paginate">
+        <option selected value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+    </div>
+    <div class="col-md-6 my-3">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Cari data User" aria-describedby="basic-addon2" wire:model="search">
+      </div>
+    </div>
+    </div>
+   <div class="row">
+    <div class="col">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -42,8 +57,8 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->password }}</td>
             <td>
-                <button class="badge bg-danger text-decoration-none" wire:click="destroy({{ $user->id }})">hapus</button>
-                <button class="badge bg-primary text-decoration-none" wire:click="getUser({{ $user->id }})">edit</button>
+              <button class="badge bg-danger text-decoration-none" wire:click="destroy({{ $user->id }})">hapus</button>
+              <button class="badge bg-primary text-decoration-none" wire:click="getUser({{ $user->id }})">edit</button>
             </td>
           </tr>
           @endforeach
@@ -51,4 +66,10 @@
         </tbody>
       </table>
     </div>
+   </div>
+   <div class="row">
+    <div class="col-md-4">
+      {{ $users->links() }}
+    </div>
+   </div>
 </div>

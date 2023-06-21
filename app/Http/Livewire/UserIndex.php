@@ -8,12 +8,12 @@ class UserIndex extends Component
 {
 
     public $userUpdate = false;
-    public $cancel = false;
+    public $reset = false;
 
     protected $listeners = [
         'userStored' => 'handleStored',
         'userUpdated' => 'handleUpdated', 
-        'cancelUpdate' => 'backCreate'
+        'cancelUpdate' => 'cancelUpdate'
     ];
     public function render()
     {
@@ -28,7 +28,7 @@ class UserIndex extends Component
     }
 
     public function getUser($id){
-        $this->cancel = false;
+        $this->reset = false;
         $this->userUpdate = true;
         $user = User::find($id);
         $this->emit('getUser', $user);
@@ -40,9 +40,9 @@ class UserIndex extends Component
        $this->userUpdate = false;
     }
 
-    public function backCreate($reset){
+    public function cancelUpdate($reset){
         $this->userUpdate = false;
-        $this->cancel = $reset;
+        $this->reset = $reset;
     }
 
     public function destroy($id){

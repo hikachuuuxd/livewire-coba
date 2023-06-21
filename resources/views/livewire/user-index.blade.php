@@ -7,7 +7,7 @@
     </div>
     @endif
 
-    @if($cancel)
+    @if($reset)
        @livewire('user-create')
     @elseif($userUpdate)
       @livewire('user-update')
